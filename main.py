@@ -158,19 +158,36 @@ def create_purchase_order(items):
         "line_items": items
     }
 
-    # Send a request to create a purchase order
-    response = requests.post(
-        base_url,
-        headers=headers,
-        params={"organization_id": organization_id},
-        data=json.dumps(purchase_order_data)
-    )
+    try:
+        # Send a request to create a purchase order
+        response = requests.post(
+            base_url,
+            headers=headers,
+            params={"organization_id": organization_id},
+            data=json.dumps(purchase_order_data)
+        )
 
-    # Check if the request was successful
-    if response.status_code == 201:
-        return response.json()
+        # Check if the request was successful
+        if response.status_code == 201:
+            return response.json()
+        else:
+            # Handle the case where the request was not successful
+            raise Exception(f"Failed to create purchase order: {response.text}")
+    except Exception as e:
+        # Handle any exceptions that may occur during the request
+        print(f"An error occurred: {str(e)}")
+        return None  # You can return None or raise another custom exception here if needed
+
+# Example usage:
+try:
+    result = create_purchase_order(items)
+    if result is not None:
+        print("Purchase order created successfully:", result)
     else:
-        raise Exception(f"Failed to create purchase order: {response.text}")
+        print("Purchase order creation failed.")
+except Exception as e:
+    # Handle any unexpected exceptions that may occur outside of the request
+    print(f"An unexpected error occurred: {str(e)}")
 
 
 
