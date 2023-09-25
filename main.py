@@ -21,6 +21,7 @@ url = os.getenv('URL')
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
 def get_credentials():
+    try:
     creds = None
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
