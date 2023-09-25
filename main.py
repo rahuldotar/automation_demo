@@ -184,7 +184,7 @@ def get_items_from_the_email(text):
             item_count += 1
             item = {}
             items.append(item)
-            item['item_number'] = line.split(': ')[0]
+                item['item_number'] = line.split(': ')[0]
             item['name'] = line.split(': ')[1]
         elif line.startswith('Quantity'):
             item['quantity'] = line.split(': ')[1]
