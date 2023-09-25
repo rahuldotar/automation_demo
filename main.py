@@ -65,20 +65,22 @@ def get_email_subject_and_body(service, message_id):
     return subject, body
 
 def add_to_mongo(items, subject):
-    data = {
-    'items': items,
-    'subject': subject
-    }
-
+    try:
+        data = {
+        'items': items,
+        'subject': subject
+        }
     
-    payload = json.dumps(data)
-    headers = {
-    'Content-Type': 'application/json'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-    print(response.text)
-
+        
+        payload = json.dumps(data)
+        headers = {
+        'Content-Type': 'application/json'
+        }
+    
+        response = requests.request("POST", url, headers=headers, data=payload)
+        print(response.text)
+    except Exception as e:
+        print(e)
 
 
 def get_item_id(item_name):
